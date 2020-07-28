@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "162949970523",
+    "firebase_url": "https://androidreo-cacb0.firebaseio.com",
+    "project_id": "androidreo-cacb0",
+    "storage_bucket": "androidreo-cacb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162949970523:android:962fcb51e8f052656fdd7e",
+        "android_client_info": {
+          "package_name": "co.kr.reo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162949970523-p2kvq8dm5tpgb03ls30f4acsnde9ugg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvv918RZmeRIWPyVfDyP7M6FHtrU3ThBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162949970523-p2kvq8dm5tpgb03ls30f4acsnde9ugg3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
