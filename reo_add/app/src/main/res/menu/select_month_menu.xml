@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/one"
+        android:title="1개월"/>
+    <item
+        android:id="@+id/two"
+        android:title="2개월"/>
+    <item
+        android:id="@+id/three"
+        android:title="3개월"/>
+    <item
+        android:id="@+id/four"
+        android:title="4개월"/>
+    <item
+        android:id="@+id/five"
+        android:title="5개월"/>
+    <item
+        android:id="@+id/six"
+        android:title="6개월"/>
+    <item
+        android:id="@+id/seven"
+        android:title="7개월"/>
+    <item
+        android:id="@+id/eight"
+        android:title="8개월"/>
+    <item
+        android:id="@+id/nine"
+        android:title="9개월"/>
+    <item
+        android:id="@+id/ten"
+        android:title="10개월"/>
+    <item
+        android:id="@+id/eleven"
+        android:title="11개월"/>
+    <item
+        android:id="@+id/twelve"
+        android:title="12개월"/>
+
+</menu>

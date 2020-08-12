@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -146,7 +145,7 @@ public class BoardListActivity extends AppCompatActivity {
                             mDrawerLayout.closeDrawers();
                             intent = new Intent(context, Login.class);
                         } else {
-                            intent = new Intent(context, MyPage.class);
+                            intent = new Intent(context, MyPageActivity.class);
                         }
                         startActivity(intent);
                     }
@@ -187,7 +186,7 @@ public class BoardListActivity extends AppCompatActivity {
 
         // GSON 컨버터를 사용하는 REST 어댑터 생성
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.219.107:9090/reo/android/")
+                .baseUrl("http://192.168.219.108:9090/reo/android/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         sp = activity.getSharedPreferences("login_sp",Context.MODE_PRIVATE);

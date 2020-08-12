@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,10 +16,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,9 +33,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -53,11 +50,11 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
     Intent intent;
     ArrayList<String> items = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         init();
         int images[] = {
                 R.drawable.office1,
@@ -75,10 +72,19 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
         Button off_btn2 = (Button) findViewById(R.id.off_btn2); //스터디
         Button off_btn3 = (Button) findViewById(R.id.off_btn3); //회의실
         Button off_btn4 = (Button) findViewById(R.id.off_btn4); //다목적홀
-        Button off_btn5 = (Button) findViewById(R.id.off_btn5); //지도검색
-        Button off_btn6 = (Button) findViewById(R.id.off_btn6); //지하철검색
-
+        ViewGroup off_btn5 = (ViewGroup) findViewById(R.id.off_btn5); //지도검색
+        ViewGroup off_btn6 =  (ViewGroup) findViewById(R.id.off_btn6); //QR인증
         final RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+
+        off_btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(IndexActivity.this, ScanQRActivity.class);
+                String email = sp.getString("email",null);
+                intent.putExtra("email",email);
+                startActivity(intent);
+            }
+        });
 
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
@@ -104,18 +110,6 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
                         intent.putExtra("name", "다목적홀");
                         startActivity(intent);
                         break;
-                    case R.id.off_btn5:
-                        intent = new Intent(IndexActivity.this, BoardListActivity.class);
-                        intent.putExtra("name", "지도검색");
-                        startActivity(intent);
-                        break;
-                    case R.id.off_btn6:
-                        intent = new Intent(IndexActivity.this, BoardListActivity.class);
-                        intent.putExtra("name", "지하철검색");
-                        startActivity(intent);
-                        break;
-                    default:
-                        break;
                 }
             }
         };
@@ -123,14 +117,11 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
         off_btn2.setOnClickListener(onClickListener);
         off_btn3.setOnClickListener(onClickListener);
         off_btn4.setOnClickListener(onClickListener);
-        off_btn5.setOnClickListener(onClickListener);
-        off_btn6.setOnClickListener(onClickListener);
 
         items.add("오피스");
         items.add("스터디");
         items.add("회의실");
         items.add("다목적홀");
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         EditText search_text_all = findViewById(R.id.search_text_all);
@@ -139,20 +130,18 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
         ImageView search_button_all = findViewById(R.id.search_button_all);
         //        search_button_all.setOnClickListener(
 //        );
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false); // 기존 title 지우기
         actionBar.setDisplayHomeAsUpEnabled(true); // 버튼 만들기
         actionBar.setHomeAsUpIndicator(R.drawable.menu);  //버튼 이미지 지정
 
-        mDrawerLayout = (DrawerLayout)
-
-                findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -168,10 +157,14 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
                     String title = menuItem.getTitle().toString();
                     if (id == R.id.account) {
                         Toast.makeText(context, title + ": 계정 정보를 확인합니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(IndexActivity.this, MyPageActivity.class);
+                        startActivity(intent);
                     } else if (id == R.id.book_List) {
                         Toast.makeText(context, title + ": 설정 정보를 확인합니다.", Toast.LENGTH_SHORT).show();
                     } else if (id == R.id.QnA) {
                         Toast.makeText(context, title + ": QnA 정보를 확입합니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(IndexActivity.this, QnAActivity.class);
+                        startActivity(intent);
                     } else if (id == R.id.logout) {
                         Toast.makeText(context, "로그아웃 중~", Toast.LENGTH_SHORT).show();
 
@@ -204,9 +197,7 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
         TextView user_login = (TextView) header.findViewById(R.id.user_login);
         TextView user_name = (TextView) header.findViewById(R.id.user_name);
 
-        if (!sp.getString("email", "null").
-
-                equals("null")) {
+        if (!sp.getString("email", "null").equals("null")) {
             user_login.setText(sp.getString("email", "null"));
             user_name.setText(sp.getString("name", ""));
             check = 1;
@@ -222,7 +213,7 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
                             intent = new Intent(context, Login.class);
 
                         } else {
-                            intent = new Intent(context, MyPage.class);
+                            intent = new Intent(context, MyPageActivity.class);
                         }
                         startActivity(intent);
                     }
@@ -257,6 +248,7 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
     // 이미지 슬라이더 구현 메서드
     public void fllipperImages(int image) {
         ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setBackgroundResource(image);
 
         v_fllipper.addView(imageView);      // 이미지 추가
@@ -272,7 +264,7 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
 
         // GSON 컨버터를 사용하는 REST 어댑터 생성
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.219.107:9090/reo/android/")
+                .baseUrl("http://192.168.219.100:9090/reo/android/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         sp = activity.getSharedPreferences("login_sp", Context.MODE_PRIVATE);
@@ -281,4 +273,17 @@ public class IndexActivity extends AppCompatActivity implements TextWatcher {
         glide = Glide.with(activity);
 
     }
+
+    //필수
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return false;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

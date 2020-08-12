@@ -25,4 +25,9 @@ public interface RetrofitService {
     Call<ArrayList<OfficeDTO>> getOffListSearch(
             @Query("off_type") String seachKeyword
     );
+
+    @GET("qrscan.reo")
+    Call<ArrayList<MemberDTO>> qrScan(
+            @Query("mem_email") String mem_email
+    );
 }

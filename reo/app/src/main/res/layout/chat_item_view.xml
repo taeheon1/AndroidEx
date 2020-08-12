@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECE1E1"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#000"
+        android:gravity="center"
+        android:text="1:1 문의 상담"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TableRow>
+    <Button
+        android:id="@+id/guest"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_qna"
+        android:text="1. 게스트"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:gravity="left"
+        android:textColor="#673AB7"/>
+        </TableRow>
+    <Button
+        android:id="@+id/host"
+        android:layout_below="@+id/guest"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_qna"
+        android:textStyle="bold"
+        android:text="2. 호스트"
+        android:textSize="18dp"
+        android:gravity="left"
+        android:textColor="#673AB7"/>
+    </TableLayout>
+
+
+</LinearLayout>

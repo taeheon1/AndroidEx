@@ -134,7 +134,7 @@ public class OfficeDetailActivity extends AppCompatActivity {
                             intent = new Intent(context, Login.class);
 
                         } else {
-                            intent = new Intent(context, MyPage.class);
+                            intent = new Intent(context, MyPageActivity.class);
                         }
                         startActivity(intent);
                     }

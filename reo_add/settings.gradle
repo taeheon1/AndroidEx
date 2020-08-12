@@ -1,0 +1,2 @@
+rootProject.name='reo_add'
+include ':app'

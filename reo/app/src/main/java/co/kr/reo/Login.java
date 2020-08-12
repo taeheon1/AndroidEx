@@ -112,6 +112,7 @@ public class Login extends AppCompatActivity {
         context = this;
 
         init(); //retrofit 초기화
+        Log.d("asd","asd");
 
         ///////navigation 셋팅///////////////
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -160,7 +161,8 @@ public class Login extends AppCompatActivity {
                             public void onResponse(Call<ArrayList<MemberDTO>> call, Response<ArrayList<MemberDTO>> response) {
                                 if(response.isSuccessful()){
                                     ArrayList<MemberDTO> user = response.body();
-                                    Log.d("MainActivity","success: " + user.get(0).getMem_email());
+                                    Log.d("MainActivity","success: " + user);
+//                                    Log.d("MainActivity","success: " + user.get(0).getMem_email());
                                     email = user.get(0).getMem_email();
                                     name = user.get(0).getMem_name();
 
@@ -177,7 +179,7 @@ public class Login extends AppCompatActivity {
                                         editor.putString("email", email);
                                         editor.putString("name", name);
                                         editor.commit();
-                                        Intent intent = new Intent(activity, BoardListActivity.class);
+                                        Intent intent = new Intent(activity, IndexActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                     }
@@ -338,7 +340,7 @@ public class Login extends AppCompatActivity {
     public void init(){
         // GSON 컨버터를 사용하는 REST 어댑터 생성
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.219.107:9090/reo/android/")
+                .baseUrl("http://192.168.219.126:9090/reo/android/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
